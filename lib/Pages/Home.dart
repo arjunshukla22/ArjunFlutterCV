@@ -10,21 +10,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> entries = <String>[
-    'A',
-    'B',
-    'C',
-    'A',
-    'B',
-    'C',
-    'A',
-    'B',
-    'C',
-    'A',
-    'B',
-    'C',
-    'A',
-    'B',
-    'C'
+    'Approx. 5 years of experience in the area of software development for mobiles which includes understanding requirement specification, working on software',
+    'Experienced of working on iOS platform and frameworks and customizing it as per requirements',
+    'Having experience in Agile development methodology',
+    'Experienced in UX Design, can translate concept design into user interface on mobiles like iPhone, iPad',
+    'Expertise in using Design patterns and object oriented methodologies to design software for mobile phones',
+    'Experienced with Apple Approval Distribution Process, AdHoc Enterprise distribution',
+    'Involved in various parse level application and well aware of parsing of SOAP, XML and JSON formatted services for iPhone and iPad',
+    'Worked on various architectures such as MVC, Singleton, Delegate and Notification patterns',
+    'Experience taking a project from scoping requirements through actual launch of application',
+    'Worked on Realm ability to write and troubleshoot SQLite Code and design managed Object context in Swift, Objective-C',
+    'Worked on latest versions of iOS 13.0 and Xcode 12.0, well versed with latest changes in theindustry',
+    'Having basic Knowledge of Dart programming language.'
   ];
   final List<int> colorCodes = <int>[600, 500, 100];
 
@@ -33,19 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(
-        children: [
-          Header(),
-          ListView(shrinkWrap: true, physics: ScrollPhysics(), children: [
-            Expanded(
-              child: ListTile(
-                // leading: FlutterLogo(),
-                title: Text('These ListTiles are expanded '),
-              ),
-            ),
-          ])
-
-          // ExperienceSummary(entries: entries)
-        ],
+        children: [Header(), ExperienceSummary(entries: entries)],
       ),
     ));
   }
@@ -61,19 +46,50 @@ class ExperienceSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 300,
-        child: new ListView.builder(
-          // shrinkWrap: true,
-          // physics: NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: entries.length,
-          itemBuilder: (BuildContext ctxt, int index) {
-            return new Text(entries[index]);
-          },
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.topLeft,
+            child: Text('Experience Summary',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'OpenSans',
+                )),
+          ),
+          SizedBox(height: 10),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemCount: entries.length,
+            itemBuilder: (BuildContext ctxt, int index) {
+              return Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.tune_rounded,
+                        color: Colors.blue,
+                        size: 10,
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                          child: Text(entries[index],
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'OpenSans',
+                              ))),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
