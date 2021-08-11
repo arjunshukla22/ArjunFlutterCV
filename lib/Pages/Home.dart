@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
+
+import 'Layout/Header.dart';
+import 'Layout/ExperienceSummary.dart';
+import 'Layout/ProfessionalExperience.dart';
+import 'package:arjuncv/Model/Project.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,115 +28,49 @@ class _HomeScreenState extends State<HomeScreen> {
     'Worked on latest versions of iOS 13.0 and Xcode 12.0, well versed with latest changes in theindustry',
     'Having basic Knowledge of Dart programming language.'
   ];
-  final List<int> colorCodes = <int>[600, 500, 100];
+
+  final projects = Project.fetchAll();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(
-        children: [Header(), ExperienceSummary(entries: entries)],
+        children: [
+          Header(),
+          // ProfessionExperience(),
+          // ExperienceSummary(entries: entries, title: 'Experience Summary'),
+          ProjectDescription(data: projects)
+        ],
       ),
     ));
   }
 }
 
-class ExperienceSummary extends StatelessWidget {
-  const ExperienceSummary({
+class ProjectDescription extends StatelessWidget {
+  const ProjectDescription({
     Key? key,
-    required this.entries,
+    required this.data,
   }) : super(key: key);
 
-  final List<String> entries;
+  final List<Project> data;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.topLeft,
-            child: Text('Experience Summary',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'OpenSans',
-                )),
-          ),
-          SizedBox(height: 10),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount: entries.length,
-            itemBuilder: (BuildContext ctxt, int index) {
-              return Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.tune_rounded,
-                        color: Colors.blue,
-                        size: 10,
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                          child: Text(entries[index],
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'OpenSans',
-                              ))),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    return Container(
-      // height: 100,
-      width: width,
-      decoration: new BoxDecoration(color: Colors.lightGreen),
-      child: Column(
-        children: [
-          SizedBox(height: 10),
-          Center(
-              child: Container(
-            width: 190.0,
-            height: 190.0,
-            decoration: new BoxDecoration(
-              shape: BoxShape.circle,
-            ),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('arjun.png'),
-            ),
-          )),
-          SizedBox(height: 10),
-          Text('Your text',
-              style: GoogleFonts.lato(
-                  textStyle: TextStyle(
-                color: Colors.blue, letterSpacing: 10,
-                decoration: TextDecoration.none,
-                // removes yellow line
-              ))),
-          SizedBox(height: 10)
-        ],
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      itemCount: data.length,
+      itemBuilder: (BuildContext ctxt, int index) {
+        return Container(
+          child: Text(data[index].title,
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'OpenSans',
+              )),
+        );
+      },
     );
   }
 }
