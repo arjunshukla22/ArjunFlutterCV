@@ -24,7 +24,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: HomeScreen(),
+          bottom: false,
+        ),
+      ),
     );
   }
 }
