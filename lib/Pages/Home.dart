@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 import 'Layout/Header.dart';
@@ -63,12 +64,36 @@ class ProjectDescription extends StatelessWidget {
       scrollDirection: Axis.vertical,
       itemCount: data.length,
       itemBuilder: (BuildContext ctxt, int index) {
-        return Container(
-          child: Text(data[index].title,
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'OpenSans',
-              )),
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: Container(
+            child: Column(
+              children: [
+                Text('Project Name : ${data[index].title}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'OpenSans',
+                    )),
+                Text('Platform : ${data[index].platform}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'OpenSans',
+                    )),
+                Text('Project Description : ${data[index].description}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'OpenSans',
+                    )),
+                new InkWell(
+                    child: Text('App URL : ${data[index].appURL}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'OpenSans',
+                        )),
+                    onTap: () => launch(data[index].appURL))
+              ],
+            ),
+          ),
         );
       },
     );
